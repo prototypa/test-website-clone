@@ -46,7 +46,7 @@ collections:
                   - { label: Highlight, name: highlight, widget: string, required: false }
                   - label: Items
                     name: items
-                    widget: object
+                    widget: list
                     fields:
                       - {label: Title, name: title, widget: string, required: false }
                       - {label: Description, name: description, widget: markdown, required: false }
@@ -60,7 +60,7 @@ collections:
                   - { label: Highlight, name: highlight, widget: string, required: false }
                   - label: Items
                     name: items
-                    widget: object
+                    widget: list
                     fields:
                       - {label: Title, name: title, widget: string, required: false }
                       - {label: Description, name: description, widget: markdown, required: false }
@@ -74,7 +74,7 @@ collections:
                   - { label: Highlight, name: highlight, widget: string, required: false }
                   - label: Items
                     name: items
-                    widget: object
+                    widget: list
                     fields:
                       - {label: Question, name: question, widget: string, default: "Question 1"}
                       - {label: Answer, name: answer, widget: markdown, default: "Answer 1"}
