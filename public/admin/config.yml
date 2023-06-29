@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+# publish_mode: editorial_workflow
+
+media_folder: "src/assets/images"
+public_folder: "/_astro"
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/post"
+    create: true
+    slug: "{{slug}}"
+    fields: # The fields for each document, usually in front matter
+      - { name: "title", label: "Title" }
+      - { name: "description", label: "Description", widget: "text", required: false }
+      - { name: "image", label: "Image", widget: "image", required: false }
+      - { name: "canonical", label: "Canonical", required: false }
+      - { name: "publishDate", label": "Publish Date", widget: "datetime", required: false }
+      - { name: "draft", label: "Is Draft?", widget: "boolean", required: false, default: false }
+      - { name: "excerpt", label: "Excerpt", required: false }
+      - { name: "category", label: "Category", required: false }
+      - { name: "tags", label: "Tags", widget: "list", default: [] }
+      - { name: "author", label: "Author"  }
+      - { label: "Content", name: "body", widget: "markdown" }
