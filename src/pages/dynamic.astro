@@ -1,0 +1,77 @@
+---
+import { getEntry } from 'astro:content';
+
+import { SITE } from '~/config.mjs';
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+
+const { data } = (await getEntry('page', 'home')) || {};
+const widgets = Array.isArray(data?.widgets) ? data.widgets : [];
+
+const dynamicComponents = widgets.map((z) => {
+  switch (z.type) {
+    case 'features':
+      return 'Features';
+    case 'features2':
+      return 'Features2';
+    case 'faqs':
+      return 'FAQs';
+    default:
+      return 'Empty';
+  }
+});
+
+console.log('*** Detected Widgets!!!');
+console.log(dynamicComponents);
+
+const loadComponents = (componentsArray) => {
+  return Promise.all(
+    componentsArray.map(async (entry) => (await import(`~/components/widgets/${entry}.astro`)).default)
+  );
+};
+
+const Components = await loadComponents(dynamicComponents);
+
+console.log('*** Components!!!');
+console.log(Components);
+
+console.log('*** Data!!!');
+console.log(widgets);
+
+const meta = {
+  title: SITE.title,
+  description: SITE.description,
+  dontUseTitleTemplate: true,
+};
+---
+
+<Layout {meta}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    callToAction={{ text: 'Get template', href: 'https://github.com/onwidget/astrowind', icon: 'tabler:download' }}
+    callToAction2={{ text: 'Learn more', href: '#features' }}
+    image={{ src: import('~/assets/images/hero.png'), alt: 'AstroWind Hero Image' }}
+  >
+    <Fragment slot="title">
+      Free template for <span class="hidden xl:inline">creating websites with</span>
+      <span class="text-accent dark:text-white highlight"> Astro 2.0</span> + Tailwind CSS
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 2.0
+        + Tailwind CSS.</span
+      >
+      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span> Suitable for Startups,
+      Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs.
+    </Fragment>
+  </Hero>
+
+  {
+    Components.map((Component, index) => {
+      return <Component {...widgets[index]} />;
+    })
+  }
+</Layout>

@@ -7,8 +7,9 @@ media_folder: "src/assets/images"
 public_folder: "/_astro"
 
 collections:
-  - name: "blog"
-    label: "Blog"
+  - name: "post"
+    label: "Posts"
+    label_singular: "Post"
     folder: "src/content/post"
     create: true
     slug: "{{slug}}"
@@ -21,6 +22,59 @@ collections:
       - { name: "draft", label: "Is Draft?", widget: "boolean", required: false, default: false }
       - { name: "excerpt", label: "Excerpt", required: false }
       - { name: "category", label: "Category", required: false }
-      - { name: "tags", label: "Tags", widget: "list", default: [] }
-      - { name: "author", label: "Author"  }
-      - { label: "Content", name: "body", widget: "markdown" }
+      - { name: "tags", label: "Tags", widget: "list", default: [], required: false }
+      - { name: "author", label: "Author", required: false }
+      - { label: "Content", name: "body", widget: "markdown", required: false }
+  - name: "pages"
+    label: "Pages"
+    files:
+      - file: "src/content/page/home.yaml"
+        label: "Home Page"
+        name: "home"
+        fields:
+          - {label: Title, name: title, widget: string, required: false }
+          - label: 'Widgets'
+            name: 'widgets'
+            widget: 'list'
+            types:
+              - name: 'features'
+                label: 'Features'
+                widget: object
+                fields:
+                  - { label: Title, name: title, widget: string, default: 'Title placeholder' }
+                  - { label: Subtitle, name: subtitle, widget: text, default: 'Subtitle placeholder', required: false }
+                  - { label: Highlight, name: highlight, widget: string, required: false }
+                  - label: Items
+                    name: items
+                    widget: object
+                    fields:
+                      - {label: Title, name: title, widget: string, required: false }
+                      - {label: Description, name: description, widget: markdown, required: false }
+                      - {label: Icon, name: icon, widget: string, required: false }
+              - name: 'features2'
+                label: 'Features 2'
+                widget: object
+                fields:
+                  - { label: Title, name: title, widget: string, default: 'Title placeholder' }
+                  - { label: Subtitle, name: subtitle, widget: text, default: 'Subtitle placeholder', required: false }
+                  - { label: Highlight, name: highlight, widget: string, required: false }
+                  - label: Items
+                    name: items
+                    widget: object
+                    fields:
+                      - {label: Title, name: title, widget: string, required: false }
+                      - {label: Description, name: description, widget: markdown, required: false }
+                      - {label: Icon, name: icon, widget: string, required: false }
+              - name: 'faqs'
+                label: 'FAQs'
+                widget: object
+                fields:
+                  - { label: Title, name: title, widget: string, default: 'Title placeholder' }
+                  - { label: Subtitle, name: subtitle, widget: text, default: 'Subtitle placeholder', required: false }
+                  - { label: Highlight, name: highlight, widget: string, required: false }
+                  - label: Items
+                    name: items
+                    widget: object
+                    fields:
+                      - {label: Question, name: question, widget: string, default: "Question 1"}
+                      - {label: Answer, name: answer, widget: markdown, default: "Answer 1"}
